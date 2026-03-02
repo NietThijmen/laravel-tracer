@@ -5,6 +5,7 @@ parameters:
     level: 5
     paths:
         - src
-        - config
         - database
+    bootstrapFiles:
+        - phpstan-stubs/request.php
     tmpDir: build/phpstan
