@@ -27,7 +27,7 @@ php artisan laravel-tracer:install
 ```
 
 
-This is optional but recommended, but the traces are [prunable](https://laravel.com/docs/12.x/eloquent#pruning-models_, so you can set up a schedule to prune old traces, for example:
+This is optional but recommended, but the traces are [prunable](https://laravel.com/docs/12.x/eloquent#pruning-models), so you can set up a schedule to prune old traces, for example:
 
 ```php
 use Illuminate\Support\Facades\Schedule;
