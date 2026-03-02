@@ -2,9 +2,10 @@
     "name": "nietthijmen/laravel-tracer",
     "description": "Trace where users went by bundling routes",
     "keywords": [
-        "nietthijmen",
         "laravel",
-        "laravel-tracer"
+        "laravel-tracer",
+        "analytics",
+        "user-tracking"
     ],
     "homepage": "https://github.com/nietthijmen/laravel-tracer",
     "license": "MIT",
