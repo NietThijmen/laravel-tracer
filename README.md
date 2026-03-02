@@ -5,11 +5,14 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/nietthijmen/laravel-tracer/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/nietthijmen/laravel-tracer/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/nietthijmen/laravel-tracer.svg?style=flat-square)](https://packagist.org/packages/nietthijmen/laravel-tracer)
 
+Get better insights in the patterns of your users with Laravel tracer, a package that allows you to easily trace user interactions in your Laravel application.
 
-A package to log request of authenticated users by bundling and qualifying routes.
+This can be used for a variety of use cases, such as:
+- Analytics: Get insights in how users interact with your application, which routes are most popular, etc.
+- Heuristics: Optimise the routes your users are actually using, for example by caching the most popular routes.
+- Debugging: Get insights in how users are interacting with your application, which can help you identify issues and bugs.
 
-
-This package is inspired by [protonemedia/laravel-tracer](https://github.com/protonemedia/laravel-tracer)
+This package doesn't use any external services, all traces are stored in your own database, so you have full control over the data and can easily query it to get the insights you need.
 
 ## Installation
 
