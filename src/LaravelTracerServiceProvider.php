@@ -31,12 +31,11 @@ class LaravelTracerServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub('nietthijmen/laravel-tracer?utm_source=package')
-                    ->info("Thank you for installing Laravel Tracer! I'd recommend opening the documentation to get started:");
+                    ->askToStarRepoOnGitHub('nietthijmen/laravel-tracer?utm_source=package');
             });
     }
 
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
         $this->app['router']->aliasMiddleware('traceUser', Middleware\TraceUser::class);
