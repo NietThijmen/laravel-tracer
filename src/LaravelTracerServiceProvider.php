@@ -25,9 +25,9 @@ class LaravelTracerServiceProvider extends PackageServiceProvider
             ->name('laravel-tracer')
             ->hasConfigFile()
             ->hasMigration('create_user_traces_table')
-            ->hasCommand(LaravelTracerCommand::class)
             ->hasInstallCommand(function(InstallCommand $command) {
                 $command
+                    ->setName('laravel-tracer:install')
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
