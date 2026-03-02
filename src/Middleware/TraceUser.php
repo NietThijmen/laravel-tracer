@@ -45,10 +45,21 @@ class TraceUser
     }
 
 
+    /**
+     * @param Authenticatable $user
+     * @param Request $request
+     * @return array{
+     *     'user_id': int|string,
+     *     'qualified_route': string,
+     *     'ip_address': string|null,
+     *     'user_agent': string|null,
+     *     'referer': string|null,
+     * }
+     */
     private function getDataToLog(
         Authenticatable $user,
         Request $request,
-    )
+    ): array
     {
         $data = [
             'user_id' => $user->getAuthIdentifier(),
@@ -83,7 +94,7 @@ class TraceUser
     {
         $qualified = $request->qualifiedAs();
 
-        if ($this->shouldLog($qualified)) {
+        if (!$this->shouldLog($qualified)) {
             return null;
         }
 

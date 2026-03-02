@@ -26,7 +26,7 @@ class LaravelTracerServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasMigration('create_user_traces_table')
             ->hasCommand(LaravelTracerCommand::class)
-            ->hasInstallCommand(static function(InstallCommand $command) {
+            ->hasInstallCommand(function(InstallCommand $command) {
                 $command
                     ->publishConfigFile()
                     ->publishMigrations()
@@ -36,18 +36,23 @@ class LaravelTracerServiceProvider extends PackageServiceProvider
             });
     }
 
+    public function boot()
+    {
+        parent::boot();
+        $this->app['router']->aliasMiddleware('traceUser', Middleware\TraceUser::class);
+        $this->app['router']->aliasMiddleware('qualify', Middleware\QualifyRoute::class);
+    }
+
     public function register(): void
     {
-        Request::macro('qualifyAs', static function (string $name, ?int $secondsBetweenLog = null) {
+        parent::register();
+        Request::macro('qualifyAs', function (string $name, ?int $secondsBetweenLog = null) {
             $this->route = new QualifiedRoute($name, $secondsBetweenLog);
             return $this;
         });
 
-        Request::macro('qualifiedAs', static function (): QualifiedRoute {
+        Request::macro('qualifiedAs', function (): QualifiedRoute {
             return $this->route ?? new QualifiedRoute($this->route()->getName() ?? 'generic-route');
         });
-
-        $this->app['router']->aliasMiddleware('traceUser', Middleware\TraceUser::class);
-        $this->app['router']->aliasMiddleware('qualify', Middleware\QualifyRoute::class);
     }
 }

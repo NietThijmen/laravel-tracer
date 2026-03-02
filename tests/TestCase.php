@@ -3,11 +3,15 @@
 namespace Nietthijmen\LaravelTracer\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nietthijmen\LaravelTracer\LaravelTracerServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
+use Workbench\App\Models\User;
 
 class TestCase extends Orchestra
 {
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -17,21 +21,42 @@ class TestCase extends Orchestra
         );
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             LaravelTracerServiceProvider::class,
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    protected function defineDatabaseMigrations(): void
+    {
+        $this->loadMigrationsFrom(__DIR__.'/../workbench/database/migrations');
+    }
+
+    protected function getEnvironmentSetUp($app): void
     {
         config()->set('database.default', 'testing');
+        config()->set('database.connections.testing', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
 
-        /*
-         foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '/../database/migrations') as $migration) {
-            (include $migration->getRealPath())->up();
-         }
-         */
+        // Set default tracer config
+        config()->set('tracer.log_ip_address', true);
+        config()->set('tracer.log_user_agent', true);
+        config()->set('tracer.log_referer', true);
+    }
+
+    /**
+     * Create a test user for authentication tests.
+     */
+    protected function createUser(array $attributes = []): User
+    {
+        return User::create(array_merge([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => bcrypt('password'),
+        ], $attributes));
     }
 }
