@@ -2,12 +2,14 @@
 
 namespace Nietthijmen\LaravelTracer;
 
+use AllowDynamicProperties;
 use Illuminate\Http\Request;
 use Nietthijmen\LaravelTracer\Data\QualifiedRoute;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
+#[AllowDynamicProperties]
 class LaravelTracerServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
