@@ -83,7 +83,7 @@ class TraceUser
     {
         $qualified = $request->qualifiedAs();
 
-        if (! $this->shouldLog($qualified)) {
+        if (! $this->shouldLog($qualified, $request)) {
             return null;
         }
 
@@ -98,17 +98,22 @@ class TraceUser
     /**
      * Determines if the user request should be traced based on the request and response.
      */
-    private function shouldLog(QualifiedRoute $qualified): bool
+    private function shouldLog(
+        QualifiedRoute $qualified,
+        Request $request
+    ): bool
     {
         if (! $secondsBetweenLogs = $qualified->getSecondsBetweenLog()) {
             return true;
         }
 
-        if ($this->limiter->tooManyAttempts($qualified->getName(), 1)) {
+        $name = "{$qualified->getName()}|tracer|user:{$request->user()->getAuthIdentifier()}";
+
+        if ($this->limiter->tooManyAttempts($name, 1)) {
             return false;
         }
 
-        $this->limiter->hit($qualified->getName(), $secondsBetweenLogs);
+        $this->limiter->hit($name, $secondsBetweenLogs);
 
         return true;
     }
