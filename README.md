@@ -52,7 +52,7 @@ You can then use the `UserTrace` model to query the traces, for example:
 
 ```php
 use NietThijmen\LaravelTracer\Models\UserTrace;
-$traces = UserTrace::where('route_name', 'resource')->get();
+$traces = UserTrace::where('qualified_route', 'resource')->get();
 ```
 
 There's also some configs for the package which get auto-published when you run the install command, you can find them in `config/tracer.php`
