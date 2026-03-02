@@ -10,8 +10,6 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class LaravelTracerServiceProvider extends PackageServiceProvider
 {
-    private QualifiedRoute $route;
-
     public function configurePackage(Package $package): void
     {
         /*

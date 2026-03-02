@@ -1,9 +1,8 @@
 <?php
 namespace Illuminate\Http;
-
 use Nietthijmen\LaravelTracer\Data\QualifiedRoute;
 
-if (false) {
+if (!\class_exists(Request::class, false)) {
     /**
      * @method Request qualifyAs(string $name, ?int $secondsBetweenLog = null)
      * @method QualifiedRoute qualifiedAs()
