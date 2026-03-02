@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-
 /**
  * @property int $id
  * @property string|null $ip_address
@@ -14,11 +13,12 @@ use Illuminate\Support\Carbon;
  * @property string|null $referer
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @inheritDoc Model
+ *                                   {@inheritDoc Model}
  */
 class UserTrace extends Model
 {
     use HasTimestamps;
+
     protected $fillable = [
         'qualified_route',
         'user_id',

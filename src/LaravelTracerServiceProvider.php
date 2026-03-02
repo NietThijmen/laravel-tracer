@@ -7,11 +7,9 @@ use Nietthijmen\LaravelTracer\Data\QualifiedRoute;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Nietthijmen\LaravelTracer\Commands\LaravelTracerCommand;
 
 class LaravelTracerServiceProvider extends PackageServiceProvider
 {
-
     private QualifiedRoute $route;
 
     public function configurePackage(Package $package): void
@@ -25,7 +23,7 @@ class LaravelTracerServiceProvider extends PackageServiceProvider
             ->name('laravel-tracer')
             ->hasConfigFile()
             ->hasMigration('create_user_traces_table')
-            ->hasInstallCommand(function(InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->setName('laravel-tracer:install')
                     ->publishConfigFile()
@@ -47,6 +45,7 @@ class LaravelTracerServiceProvider extends PackageServiceProvider
         parent::register();
         Request::macro('qualifyAs', function (string $name, ?int $secondsBetweenLog = null) {
             $this->route = new QualifiedRoute($name, $secondsBetweenLog);
+
             return $this;
         });
 

@@ -8,23 +8,20 @@ namespace Nietthijmen\LaravelTracer\Data;
  */
 class QualifiedRoute
 {
-
     private string $name;
+
     private ?int $secondsBetweenLog = null;
 
     public function __construct(
         string $name,
         ?int $secondsBetweenLog = null
-    )
-    {
+    ) {
         $this->name = $name;
         $this->secondsBetweenLog = $secondsBetweenLog;
     }
 
     /**
      * Get the value of name
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -33,8 +30,6 @@ class QualifiedRoute
 
     /**
      * Get the value of secondsBetweenLog
-     *
-     * @return int|null
      */
     public function getSecondsBetweenLog(): ?int
     {

@@ -24,11 +24,10 @@ class TraceUser
     public function handle(
         Request $request,
         Closure $next
-    )
-    {
+    ) {
         $response = $next($request);
 
-        if(!$user = $request->user()) {
+        if (! $user = $request->user()) {
             return $response;
         }
 
@@ -44,10 +43,7 @@ class TraceUser
         return $response;
     }
 
-
     /**
-     * @param Authenticatable $user
-     * @param Request $request
      * @return array{
      *     'user_id': int|string,
      *     'qualified_route': string,
@@ -59,42 +55,35 @@ class TraceUser
     private function getDataToLog(
         Authenticatable $user,
         Request $request,
-    ): array
-    {
+    ): array {
         $data = [
             'user_id' => $user->getAuthIdentifier(),
             'qualified_route' => $request->qualifiedAs()->getName(),
         ];
 
-        if(config('tracer.log_ip_address')) {
+        if (config('tracer.log_ip_address')) {
             $data['ip_address'] = $request->ip();
-        };
+        }
 
-        if(config('tracer.log_user_agent')) {
+        if (config('tracer.log_user_agent')) {
             $data['user_agent'] = $request->userAgent();
-        };
+        }
 
-        if(config('tracer.log_referer')) {
+        if (config('tracer.log_referer')) {
             $data['referer'] = $request->headers->get('referer');
-        };
+        }
 
         return $data;
     }
 
-
     /**
      * Stores the user request in the database.
-     *
-     * @param Authenticatable $user
-     * @param Request $request
-     *
-     * @return UserTrace|null
      */
-    private function traceRequest(Authenticatable $user, Request $request): ? UserTrace
+    private function traceRequest(Authenticatable $user, Request $request): ?UserTrace
     {
         $qualified = $request->qualifiedAs();
 
-        if (!$this->shouldLog($qualified)) {
+        if (! $this->shouldLog($qualified)) {
             return null;
         }
 
@@ -107,15 +96,11 @@ class TraceUser
     }
 
     /**
-
-     *
      * Determines if the user request should be traced based on the request and response.
-     * @param  QualifiedRoute $qualified
-     * @return boolean
      */
     private function shouldLog(QualifiedRoute $qualified): bool
     {
-        if (!$secondsBetweenLogs = $qualified->getSecondsBetweenLog()) {
+        if (! $secondsBetweenLogs = $qualified->getSecondsBetweenLog()) {
             return true;
         }
 
@@ -127,7 +112,4 @@ class TraceUser
 
         return true;
     }
-
-
-
 }
