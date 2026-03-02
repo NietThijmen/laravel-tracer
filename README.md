@@ -14,6 +14,9 @@ This can be used for a variety of use cases, such as:
 
 This package doesn't use any external services, all traces are stored in your own database, so you have full control over the data and can easily query it to get the insights you need.
 
+
+(This package is inspired by the work done by [protonemedia](https://github.com/protonemedia) their [package](https://github.com/protonemedia/laravel-tracer), but since they're package is archived for over 2 years, I decided to create a new package with the same functionality but with a more modern approach, and also with some additional features such as the prunable traces and extra configs.)
+
 ## Installation
 
 You can install the package via composer:
