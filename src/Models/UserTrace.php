@@ -2,7 +2,9 @@
 
 namespace Nietthijmen\LaravelTracer\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
+use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -17,7 +19,7 @@ use Illuminate\Support\Carbon;
  */
 class UserTrace extends Model
 {
-    use HasTimestamps;
+    use HasTimestamps, MassPrunable;
 
     protected $fillable = [
         'qualified_route',
@@ -26,4 +28,15 @@ class UserTrace extends Model
         'user_agent',
         'referer',
     ];
+
+    /**
+     * @return Builder<static>
+     */
+    public function prunable(): Builder
+    {
+        $threshold = now()->subDays(config('tracer.prune_after_days', 30));
+
+        return static::query()
+            ->where('created_at', '<=', $threshold);
+    }
 }

@@ -24,6 +24,19 @@ php artisan laravel-tracer:install
 ```
 
 
+This is optional but recommended, but the traces are [prunable](https://laravel.com/docs/12.x/eloquent#pruning-models_, so you can set up a schedule to prune old traces, for example:
+
+```php
+use Illuminate\Support\Facades\Schedule;
+
+Schedule::command('model:prune', [
+    '--model' => [
+        \Nietthijmen\LaravelTracer\Models\UserTrace::class
+    ],
+])->daily();
+````
+
+
 ## Usage
 The package has 2 middleware, aliased as: traceUser & qualify
 The qualify middleware allows you to "overwrite" the route name used for tracing, this is useful for when multiple routes can be grouped together, for example: all routes related to a specific resource.
