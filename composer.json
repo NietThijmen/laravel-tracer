@@ -42,10 +42,7 @@
         "psr-4": {
             "Nietthijmen\\LaravelTracer\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
-        },
-        "files": [
-            "phpstan-stubs/Request.stub"
-        ]
+        }
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",

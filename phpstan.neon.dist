@@ -6,6 +6,4 @@ parameters:
     paths:
         - src
         - database
-    bootstrapFiles:
-        - phpstan-stubs/Request.stub
     tmpDir: build/phpstan
