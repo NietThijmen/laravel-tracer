@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Nietthijmen\LaravelTracer\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelTracerCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-tracer';
 
     public $description = 'My command';
 
