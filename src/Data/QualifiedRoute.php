@@ -18,7 +18,7 @@ class QualifiedRoute
     ) {
         $this->name = $name;
 
-        if($secondsBetweenLog !== null) {
+        if ($secondsBetweenLog !== null) {
             $secondsBetweenLog = config('tracer.seconds_between_logs', null);
         }
 
