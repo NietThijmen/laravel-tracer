@@ -17,38 +17,34 @@ You can install the package via composer:
 
 ```bash
 composer require nietthijmen/laravel-tracer
+php artisan laravel-tracer:install
 ```
 
-You can publish and run the migrations with:
 
-```bash
-php artisan vendor:publish --tag="laravel-tracer-migrations"
-php artisan migrate
+## Usage
+The package has 2 middleware, aliased as: traceUser & qualify
+The qualify middleware allows you to "overwrite" the route name used for tracing, this is useful for when multiple routes can be grouped together, for example: all routes related to a specific resource.
+
+```php
+Route::middleware(['auth', 'traceUser', 'qualify:resource'])->group(function () {
+    Route::get('/resource', [ResourceController::class, 'index'])->name('resource.index');
+    Route::get('/resource/{id}', [ResourceController::class, 'show'])->name('resource.show');
+});
 ```
 
-You can publish the config file with:
+You can then use the `UserTrace` model to query the traces, for example:
 
-```bash
-php artisan vendor:publish --tag="laravel-tracer-config"
+```php
+use NietThijmen\LaravelTracer\Models\UserTrace;
+$traces = UserTrace::where('route_name', 'resource')->get();
 ```
 
-## Testing
-
-```bash
-composer test
-```
+There's also some configs for the package which get auto-published when you run the install command, you can find them in `config/tracer.php`
+These configs allow you to set what gets traced (user agent, ip address, etc.) and also allow you to set a custom model for the traces.
 
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
